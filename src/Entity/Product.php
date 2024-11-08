@@ -15,7 +15,7 @@ class Product
     #[ORM\Column]
     private string $name;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: true, length: 2000)]
     private ?string $description;
 
     #[ORM\Column]
@@ -24,7 +24,7 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?int $quantityInStock;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "integer")]
     private ?float $price;
 
     #[ORM\Column(nullable: true)]
