@@ -2,14 +2,32 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
 class Product
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private ?int $id;
+
+    #[ORM\Column]
     private string $name;
+
+    #[ORM\Column(nullable: true)]
     private ?string $description;
+
+    #[ORM\Column]
     private \DateTimeImmutable $createdAt;
+
+    #[ORM\Column(nullable: true)]
     private ?int $quantityInStock;
+
+    #[ORM\Column]
     private ?float $price;
+
+    #[ORM\Column(nullable: true)]
     private ?string $imageName;
 
     public function getImageName(): ?string
