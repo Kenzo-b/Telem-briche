@@ -24,11 +24,11 @@
         <li>description du produit : {{ descritpion }}</li>
         {% endif %}
         <li>quantité en stock du produit : {{ product.quantityInStock }}</li>
-        <li>prix du produit : {{ (product.price/100)|number_format(2) }} €</li>
+        <li>prix du produit : {{ product.price|price(2) }}</li>
         <li>
             <img src="/build/images/{{ product.imageName }}">
         </li>
-        <li>Ajouté qu catalogue le : {{  product.createdAt|date('d/m/Y')}}</li>
+        <li>Ajouté qu catalogue le : {{  product.createdAt|dateFr}}</li>
     </ul>
     {% endfor %}
         {% block body %}{% endblock %}
