@@ -1,5 +1,5 @@
 .Card {
-  border: solid 2px #d5e3ec;
+  border: solid 2px $card-border-color;
   background-color: white;
   border-radius: 3px;
   height: 300px;
@@ -8,12 +8,12 @@
   display: flex;
 
   &:hover {
-    border: solid 2px darken(#d5e3ec, 20%);
+    border: solid 2px $card-border-color-hover;
   }
 
   &.-only {
     &:hover {
-      border: solid 2px #d5e3ec;
+      border: solid 2px $card-border-color;
     }
   }
 

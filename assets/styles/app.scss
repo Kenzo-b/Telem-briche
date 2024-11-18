@@ -1,5 +1,22 @@
-@use '_reset';
-@use 'initFont';
-@use '_Card';
-@use '_Image';
-@use '_CardCollection';
+// first import
+@import "_font";
+
+//vars import
+@import'_vars';
+
+//divers init
+@import '_reset';
+@import 'initFont';
+
+//blocs
+@import '_Card';
+@import '_Image';
+@import '_CardCollection';
+@import '_Header';
+@import '_Footer';
+@import '_MainMenu';
+@import '_MainContent';
+@import "_Brand";
+@import "_LayoutContainer";
+
+//transversal css
