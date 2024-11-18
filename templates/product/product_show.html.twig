@@ -1,19 +1,10 @@
-<ul>
-    {% set descritpion = product.description %}
-    <li>nom du produit : {{ product.name }}</li>
-    {% if descritpion is not empty %}
-        <li>description du produit : {{ descritpion }}</li>
-    {% endif %}
-    <li>quantité en stock du produit : {{ product.quantityInStock }}</li>
-    <li>prix du produit : {{ product.price|price(2) }}</li>
-    <li>
-        <img src="/build/images/{{ product.imageName }}">
-    </li>
-    <li>Ajouté qu catalogue le : {{  product.createdAt|dateFr}}</li>
-    <li>
-        <a href="/edit/{{ product.id }}">Voir la fiche</a>
-    </li>
-    <li>
-        <a href="{{ path('product_show_all') }}">Voir tout les produits</a>
-    </li>
-</ul>
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Fiche produit</h1>
+    {% include 'product/_product_card.html.twig' %}
+{% endblock body %}
+
+
+

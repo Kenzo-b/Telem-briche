@@ -96,4 +96,9 @@ class Product
         $this->price = $price;
         return $this;
     }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 }
