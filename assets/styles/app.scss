@@ -1,3 +1,4 @@
-body {
-    background-color: green;
-}
+@use '_reset';
+@use 'initFont';
+@use '_Card';
+@use '_Image';
