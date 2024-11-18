@@ -1,27 +1,14 @@
+/* ############################## */
+/*      variables partagées       */
+/* ############################## */
 
 /* *********** couleurs du thème *********** */
 $color-base: #005d80;
+$color_secondary: #d5e3ec;
 
-/* *********** Brand *********** */
-$brand-bg-color: #FF8119;
-$brand-font-color: #fff;
-$brand-font-family: 'Oxygen', sans-serif;
-
-/* *********** Card *********** */
-$card-border-color: #d5e3ec;
-$card-border-color-hover: darken($card-border-color, 20%);
-
-/* *********** Footer *********** */
-$footer-bg-color: $color-base;
-
-/* *********** Header *********** */
-$header-bg-color: $color-base;
-
-/* *********** MainMenu *********** */
-$mainMenu-bg-color: #d5e3ec;
-
-/* *********** MainContent *********** */
-$mainContent-bg-color: #f7fafb;
+/* *********** grid *********** */
+$grid-col1-width: 250px;
+$grid-col2-width: 1fr;
 
 /* *********** margin *********** */
 $margin-small: 2px;
@@ -35,3 +22,40 @@ $padding-base: 5px;
 $padding-big: 10px;
 $padding-biggest: 15px;
 
+/* *********** radius *********** */
+$radius-base: 5px;
+
+/* ############################## */
+/*             blocs              */
+/* ############################## */
+
+/* *********** Brand *********** */
+$brand-bg-color: #FF8119;
+$brand-font-color: #fff;
+$brand-font-family: 'Oxygen', sans-serif;
+
+/* *********** Card *********** */
+$card-border-color: $color_secondary;
+$card-border-color-hover: darken($card-border-color, 20%);
+
+/* *********** Footer *********** */
+$footer-bg-color: $color-base;
+
+/* *********** Header *********** */
+$header-bg-color: $color-base;
+$header-brand-width: $grid-col1-width - $padding-base;
+$header_padding: $padding-base;
+
+/* *********** MainMenu *********** */
+$mainMenu-bg-color: $color_secondary;
+
+/* *********** MainContent *********** */
+$mainContent-bg-color: #f7fafb;
+
+/* *********** Search *********** */
+$search-button-bg-color: $color_secondary;
+$search-button-bg-hover-color: darken($search-button-bg-color, 15%);
+$search-input-bg-color: white;
+$search-input-border: solid 4px $color_secondary;
+$search-input-focus-border: solid 4px invert($color-base);
+$search-input-placeholder-font-color: #919191;
