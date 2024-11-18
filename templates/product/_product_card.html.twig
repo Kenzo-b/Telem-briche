@@ -1,9 +1,18 @@
+{% if products is defined %}
+    {% set elementStart = '<a class="Card_info" href="'~path('product_show', {id: product.id}) ~'">' %}
+    {% set elementEnd = '</a>' %}
+    {% set isOnly = '' %}
+{% else %}
+    {% set elementStart = '<div class="Card_info">' %}
+    {% set elementEnd = '</div>' %}
+    {% set isOnly = ' -only' %}
+{% endif %}
 
-<div class="Card">
+<div class="Card{{ isOnly }}">
     <div class="Card_image">
         <img class="Image" src="/images/{{ product.imageName }}">
     </div>
-    <div class="Card_info">
+    {{ elementStart|raw }}
         <p class="Card_title">
             {{ product.name }}
         </p>
@@ -13,5 +22,5 @@
         <p class="Card_price">
             {{ product.price|price }}
         </p>
-    </div>
+    {{ elementEnd|raw }}
 </div>
