@@ -31,9 +31,14 @@ class ManageProductController extends AbstractController
             $product->setCreatedAt(new \DateTimeImmutable());
             $em->persist($product);
             $em->flush();
+            $this->addFlash('success', 'le produit a été ajouté au catalogue');
             return $this->redirectToRoute('product_show_all');
         }
 
-        return $this->renderForm('product/product_new.html.twig', ['form' => $form]);
+        return $this->renderForm('product/product_new.html.twig',
+            [
+                'form' => $form
+            ]
+        );
     }
 }
