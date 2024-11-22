@@ -18,21 +18,14 @@ class ProductRepository extends ServiceEntityRepository
             ->select($this->alias);
     }
 
+    private function initializeQueryBuilderWithCount(): void {
+        $this->qb = $this->createQueryBuilder($this->alias)
+            ->select("COUNT($this->alias.id)");
+    }
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
-    }
-
-    private function orNameLike(string $keyword): void {
-        $this->qb
-            ->orWhere("$this->alias.name LIKE :name")
-            ->setParameter('name', "%$keyword%");
-    }
-
-    private function orDescriptionLike(string $keyword): void {
-        $this->qb
-            ->orWhere("$this->alias.description LIKE :name")
-            ->setParameter('name', "%$keyword%");
     }
 
     private function orPropertyLike(string $propertyName,string $keyword): void {
@@ -41,10 +34,20 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter($propertyName, "%$keyword%");
     }
 
-    public function search(string $keyword): array {
-        $this->initializeQueryBuilder();
+    private function searchQb(string $keyword): void {
         $this->orPropertyLike('description', $keyword);
         $this->orPropertyLike('name', $keyword);
+    }
+
+    public function search(string $keyword): array {
+        $this->initializeQueryBuilder();
+        $this->searchQb($keyword);
         return $this->qb->getQuery()->getResult();
+    }
+
+    public function searchCount(string $keyword): int {
+        $this->initializeQueryBuilderWithCount();
+        $this->searchQb($keyword);
+        return $this->qb->getQuery()->getSingleScalarResult();
     }
 }

@@ -34,6 +34,12 @@ class ProductController extends AbstractController
     {
         $KeywordSearched = $request->request->get('searchProduct');
         $products =  $productRepository->search($KeywordSearched);
-        return $this->render('product/product_show_all.html.twig', ['products' => $products]);
+        $nbOfResult = count($products);
+        return $this->render('product/product_show_all.html.twig',
+            [
+                'products' => $products,
+                'nb_of_results' => $nbOfResult
+            ]
+        );
     }
 }
