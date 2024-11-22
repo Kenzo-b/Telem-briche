@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -14,19 +15,29 @@ class Product
     private ?int $id;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'le nom du produit doit être indiqué')]
+    #[Assert\Length(
+        min: 5,
+        max: 120,
+        minMessage: "Le nom du produit doit au moin faire {{ limit }} charactères",
+        maxMessage: "le nom du produit doit faire au plus {{ limit }} charactères"
+    )]
     private string $name;
 
     #[ORM\Column(nullable: true, length: 2000)]
+    #[Assert\Length(min: 10, minMessage: "Le nom du produit doit au moin faire {{ limit }} charactères")]
     private ?string $description;
 
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\PositiveOrZero(message: "La quantité doit être supérieur ou égale à zéro")]
     private ?int $quantityInStock;
 
     #[ORM\Column(type: "integer")]
-    private ?float $price;
+    #[Assert\Positive(message: "le prix doit être strictement supérieur à zéro")]
+    private ?int $price;
 
     #[ORM\Column(nullable: true)]
     private ?string $imageName;
@@ -86,12 +97,12 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?int
     {
         return $this->price;
     }
 
-    public function setPrice(?float $price): Product
+    public function setPrice(?int $price): Product
     {
         $this->price = $price;
         return $this;
