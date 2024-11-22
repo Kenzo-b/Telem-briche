@@ -1,13 +1,13 @@
 {% if products is defined %}
     {% set element_start = '<a class="Card_info" href="'~path('product_show', {id: product.id}) ~'">' %}
     {% set element_end = '</a>' %}
-    {% set is_only = false %}
-    {% set class_if_not_only = '' %}
+    {% set is_only = '' %}
+    {% set class_if_not_only = false %}
 {% else %}
     {% set element_start = '<div class="Card_info">' %}
     {% set element_end = '</div>' %}
-    {% set is_only = ' -only' %}
-    {% set class_if_not_only = true %}
+    {% set is_only = true %}
+    {% set class_if_not_only = ' -only' %}
 {% endif %}
 
 <div class="Card{{ class_if_not_only }}">

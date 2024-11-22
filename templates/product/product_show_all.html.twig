@@ -3,8 +3,8 @@
 
 {% block body %}
     <h1>Liste de tous les produits</h1>
+    <p>{{ nb_of_results }} résultats</p>
     {% for product in products %}
-        <p>{{ nb_of_results }} résultats</p>
         {% if loop.first %}
             <div class="CardCollection">
         {% endif %}

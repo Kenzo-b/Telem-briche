@@ -8,7 +8,7 @@
 
   &::before {
     content: '\02B25';
-    padding-right: $Padding-base
+    padding-right: $padding-base;
   }
 
   &.-success {

@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Form\Type\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,13 +44,8 @@ class ManageProductController extends AbstractController
         );
     }
 
-    #[Route('/manage/product/edit/{id}', name: 'manage_product_edit')]
-    public function edit(int $id, Request $request, EntityManagerInterface $em): Response {
-        $productRepository = $em->getRepository(Product::class);
-        $product = $productRepository->find($id);
-        if (!$product) {
-            throw $this->createNotFoundException("Aucun produit avec l'id " . $id);
-        }
+    #[Route('/manage/product/edit/{id}', name: 'manage_product_edit', requirements: ["id" => '\d+'])]
+    public function edit(Product $product, Request $request, EntityManagerInterface $em): Response {
         $form = $this->createForm(ProductType::class, $product);
         $form->add('updateProduct', SubmitType::class,
         [

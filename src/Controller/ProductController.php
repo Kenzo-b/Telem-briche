@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,13 +20,10 @@ class ProductController extends AbstractController
         return $this->render('product/product_show_all.html.twig', ['products' => $products]);
     }
 
-    #[Route('/product/show/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
-    public function show(int $id, ProductRepository $productRepository): Response
+    #[Route('/product/show/{product_id}', name: 'product_show', requirements: ['id' => '\d+'])]
+    #[Entity('product', options: ['id' => "product_id"])]
+    public function show(Product $product, ProductRepository $productRepository): Response
     {
-        $product = $productRepository->find($id);
-        if (!$product) {
-            throw new NotFoundHttpException("ce produit n'existe pas");
-        }
         return $this->render('product/product_show.html.twig', ['product' => $product]);
     }
 
