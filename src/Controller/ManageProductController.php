@@ -76,13 +76,18 @@ class ManageProductController extends AbstractController
     }
 
     #[Route('/manage/product/delete/{id}', name: 'manage_product_delete', requirements: ["id" => '\d+'])]
-    public function delete(Product $product, EntityManagerInterface $em): Response {
-        $id = $product->getId();
-        $em->remove($product);
-        $em->flush();
+    public function delete(Product $product, Request $request ,EntityManagerInterface $em): Response {
+        $submittedToken = $request->request->get('token');
+        if($this->isCsrfTokenValid("delete-product", $submittedToken)) {
+            $id = $product->getId();
+            $em->remove($product);
+            $em->flush();
 
-        $this->addFlash('success', "Le produit $id a été supprimé");
-        return $this->redirectToRoute('product_show_all');
+            $this->addFlash('success', "Le produit $id a été supprimé");
+            return $this->redirectToRoute('product_show_all');
+        }
+        $this->addFlash('error', "le token pour la suppression du produit est invalide");
+        return $this->redirectToRoute('manage_product_edit', ['id' => $product->getId()]);
     }
 
     #[Route('/manage/product/delete-confirm/{id}', name: 'manage_product_delete_confirm', requirements: ["id" => '\d+'])]
