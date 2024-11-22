@@ -20,8 +20,7 @@ class ProductController extends AbstractController
         return $this->render('product/product_show_all.html.twig', ['products' => $products]);
     }
 
-    #[Route('/product/show/{product_id}', name: 'product_show', requirements: ['id' => '\d+'])]
-    #[Entity('product', options: ['id' => "product_id"])]
+    #[Route('/product/show/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
     public function show(Product $product, ProductRepository $productRepository): Response
     {
         return $this->render('product/product_show.html.twig', ['product' => $product]);

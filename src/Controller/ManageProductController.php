@@ -68,8 +68,25 @@ class ManageProductController extends AbstractController
 
         return $this->renderForm('product/product_new.html.twig',
             [
-                'form' => $form
+                'form' => $form,
+                'product' => $product
             ]
         );
+
+    }
+
+    #[Route('/manage/product/delete/{id}', name: 'manage_product_delete', requirements: ["id" => '\d+'])]
+    public function delete(Product $product, EntityManagerInterface $em): Response {
+        $id = $product->getId();
+        $em->remove($product);
+        $em->flush();
+
+        $this->addFlash('success', "Le produit $id a été supprimé");
+        return $this->redirectToRoute('product_show_all');
+    }
+
+    #[Route('/manage/product/delete-confirm/{id}', name: 'manage_product_delete_confirm', requirements: ["id" => '\d+'])]
+    public function deleteConfirm(Product $product): Response {
+        return $this->render('product/product_delete_confirm.html.twig',['product'=>$product]);
     }
 }
