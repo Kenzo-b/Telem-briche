@@ -36,6 +36,7 @@ class Product
     private ?int $quantityInStock;
 
     #[ORM\Column(type: "integer")]
+    #[Assert\NotBlank(message: "le prix est obligatoire")]
     #[Assert\Positive(message: "le prix doit être strictement supérieur à zéro")]
     private ?int $price;
 

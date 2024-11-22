@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\Type\ProductType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -33,6 +34,40 @@ class ManageProductController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'le produit a été ajouté au catalogue');
             return $this->redirectToRoute('product_show_all');
+        }
+
+        return $this->renderForm('product/product_new.html.twig',
+            [
+                'form' => $form
+            ]
+        );
+    }
+
+    #[Route('/manage/product/edit/{id}', name: 'manage_product_edit')]
+    public function edit(int $id, Request $request, EntityManagerInterface $em): Response {
+        $productRepository = $em->getRepository(Product::class);
+        $product = $productRepository->find($id);
+        if (!$product) {
+            throw $this->createNotFoundException("Aucun produit avec l'id " . $id);
+        }
+        $form = $this->createForm(ProductType::class, $product);
+        $form->add('updateProduct', SubmitType::class,
+        [
+            'label' => "Modifier le produit",
+            'attr' => [
+                'class' => 'Button -no-danger -reverse'
+            ]
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $product->setCreatedAt(new \DateTimeImmutable());
+            $em->flush();
+            $this->addFlash('success', 'le produit a été ajouté au catalogue');
+            return $this->redirectToRoute('product_show',
+            ['id' => $product->getId()]
+            );
         }
 
         return $this->renderForm('product/product_new.html.twig',
