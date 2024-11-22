@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\Type\ProductType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ class ManageProductController extends AbstractController
 {
 
     #[Route('/manage/product/new', name: 'manage_product_new')]
-    public function new(Request $request): Response {
+    public function new(Request $request, EntityManagerInterface $em): Response {
         $product = new Product();
         $form = $this->createForm(
             ProductType::class,
@@ -27,7 +28,10 @@ class ManageProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $poductFromForm = $form->getData();
+            $product->setCreatedAt(new \DateTimeImmutable());
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('product_show_all');
         }
 
         return $this->renderForm('product/product_new.html.twig', ['form' => $form]);
