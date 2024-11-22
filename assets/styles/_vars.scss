@@ -29,6 +29,23 @@ $radius-base: 5px;
 /*             blocs              */
 /* ############################## */
 
+/* *********** Button*********** */
+//bouton par default
+$button-default-color: #6B6B6B;
+$button-default-reverse-color: white;
+
+//bouton de lien
+$button-link-color: $color-base;
+$button-link-reverse-color: white;
+
+//bouton no danger
+$button-no-danger-color: green;
+$button-no-danger-reverse-color: white;
+
+//bouton danger
+$button-danger-color: red;
+$button-danger-reverse-color: white;
+
 /* *********** Brand *********** */
 $brand-bg-color: #FF8119;
 $brand-font-color: #fff;
